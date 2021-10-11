@@ -1,6 +1,6 @@
 import scrapy
 
-class QuotesSpider(scrapy.Spider):
+class UdbudSpider(scrapy.Spider):
     name = "udbud"
     start_urls = [
         'https://udbud.dk/Pages/Tenders/News',
