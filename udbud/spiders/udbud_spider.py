@@ -11,6 +11,11 @@ class UdbudSpider(scrapy.Spider):
         value = value.replace("\r\n", "").strip()
         return value
     
+    @staticmethod
+    def is_clentech_tender(text: str):
+        # TODO
+        pass
+    
     def parse_tender(self, response):
         meta_data = response.meta
         for row in response.xpath('//table[@class="details-table"]//tbody//tr'):
