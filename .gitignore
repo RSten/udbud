@@ -1,0 +1,6 @@
+# Output files
+*.jl
+
+# Python cache and tmp
+__pycache__/
+*.pyc
