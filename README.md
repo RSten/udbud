@@ -20,5 +20,4 @@ Here we use the "-O" tag to define the output file. In this case a jsonlines fil
 
 
 ## TO-DO
-- [ ] Define tender item in items.py
 - [ ] Define is_cleantech_tender method
