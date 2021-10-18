@@ -1,5 +1,6 @@
 import scrapy
 from udbud.items import UdbudItem
+from udbud.constants import CLEANTECH_COMPANY_REGEX, CLEANTECH_VOCAB_REGEX
 
 class UdbudSpider(scrapy.Spider):
     name = "udbud"
@@ -9,9 +10,15 @@ class UdbudSpider(scrapy.Spider):
     ]
     
     @staticmethod
-    def is_clentech_tender(text: str):
-        # TODO
-        pass
+    def is_clentech_tender(tender_item: UdbudItem):
+        description = tender_item.get("tender_title", "") + " " + tender_item.get("description", "")
+        
+        if CLEANTECH_VOCAB_REGEX.search(description):
+            return True
+        elif CLEANTECH_COMPANY_REGEX.search(tender_item.get("contractor", "")):
+            return True
+        else:
+            return False
     
     def parse_tender(self, response):
         data = response.meta
@@ -41,6 +48,7 @@ class UdbudSpider(scrapy.Spider):
         item["description"] = data.get("Kort beskrivelse", data.get("Opgavebeskrivelse"))
         item["tender_details"] = data.get("Udbudsdetaljer")
 
+        is_cleantech = self.is_clentech_tender(item)
         yield item
 
     def parse(self, response):
